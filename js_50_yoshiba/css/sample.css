@@ -1,0 +1,29 @@
+h1{
+    text-align: center;
+}
+
+main{
+    text-align: center;
+}
+
+
+.reg_muscleTraining {
+    display: flex;
+    justify-content: center;
+}
+
+.reg_muscleTraining p {
+    display: block;
+    width: 100px;
+    text-align: left;
+}
+
+.reg_muscleTraining input {
+    height: 20px;
+    margin: auto 0;
+}
+
+footer{
+    text-align: center;
+    background-color: gray;
+}

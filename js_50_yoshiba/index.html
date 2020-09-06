@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>myMemoPad</title>
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+</head>
+<body>
+<header>
+<h1>#筋トレ日記</h1>
+</header>
+<main>
+    <div class="box">
+        <div class="reg_muscleTraining">
+            <p>腹筋</p>
+            <input id="fukkin" min="0" type="number">
+        </div>
+        <div class="reg_muscleTraining">
+            <p>背筋</p>
+            <input id="haikin" min="0" type="number">
+        </div>
+        <div class="reg_muscleTraining">
+            <p>腕立て</p>
+            <input id="udetate" min="0" type="number">
+        </div>    
+    </div>
+        <div id="save"></div>
+        <button id="sent">いでよ、俺の成果</button>
+
+        <div class="total">
+            <div class="reg_muscleTraining">
+                <p>腹筋<span id="fukkin2"></span>回</p>
+            </div>
+            <div class="reg_muscleTraining">
+                <p>背筋<span id="haikin2"></span>回</p>
+            </div>
+            <div class="reg_muscleTraining">
+                <p>腕立て<span id="udetate2"></span>回</p>
+            </div>    
+        </div>
+        <div>
+            <button id="delete">削除</button>
+        </div>
+        
+
+</main>
+<!-- <table id="list"> -->
+<!-- ここに追加データが挿入される -->
+</table>
+<script>
+//1.Save クリックイベント
+$("#sent").on("click",function(){
+    //入力された値を取得する
+    const fukkin_input = Number($("#fukkin").val());
+    const haikin_input = Number($("#haikin").val());
+    const udetate_input = Number($("#udetate").val());
+
+    // マイナスの値入れた時のバリデーション
+    if(fukkin_input < 0 || haikin_input <0 || udetate_input <0){
+        alert("0以上の値を入力してください")
+        return
+    // 値を入力しなかったときのバリデーション
+    } else if (fukkin_input + haikin_input + udetate_input <1){
+        alert("値を入力してください")
+        return
+    }
+
+    // localStrageから値を取り出す
+    const fukkin_localStrage = Number(localStorage.getItem("fukkin"))
+    const haikin_localStrage = Number(localStorage.getItem("haikin"))
+    const udetate_localStrage = Number(localStorage.getItem("udetate"))
+
+    // localStrageの値がある場合は入力値と足して合計を出す
+    const fukkin_sum = fukkin_input + fukkin_localStrage
+    const haikin_sum = haikin_input + haikin_localStrage
+    const udetate_sum = udetate_input + udetate_localStrage
+
+    // 合計を表示する
+    document.querySelector("#fukkin2").innerHTML = fukkin_sum
+    document.querySelector("#haikin2").innerHTML = haikin_sum
+    document.querySelector("#udetate2").innerHTML = udetate_sum
+
+    // localStrageに格納
+    localStorage.setItem("fukkin", fukkin_sum);
+    localStorage.setItem("haikin", haikin_sum);
+    localStorage.setItem("udetate", udetate_sum);
+});
+
+
+const fukkin_localStrage = Number(localStorage.getItem("fukkin")) || 0
+document.querySelector("#fukkin").value = 0
+document.querySelector("#fukkin2").innerHTML = fukkin_localStrage
+const haikin_localStrage = Number(localStorage.getItem("haikin")) || 0
+document.querySelector("#haikin").value = 0
+document.querySelector("#haikin2").innerHTML = haikin_localStrage
+const udetate_localStrage = Number(localStorage.getItem("udetate")) || 0
+document.querySelector("#udetate").value = 0
+document.querySelector("#udetate2").innerHTML = udetate_localStrage
+
+
+//1.削除 クリックイベント
+$("#delete").on("click",function(){
+    localStorage.setItem("fukkin", 0);
+    localStorage.setItem("haikin", 0);
+    localStorage.setItem("udetate", 0);
+
+    document.querySelector("#fukkin").value = 0
+    document.querySelector("#haikin").value = 0
+    document.querySelector("#udetate").value = 0
+
+    document.querySelector("#fukkin2").innerHTML = 0
+    document.querySelector("#haikin2").innerHTML = 0
+    document.querySelector("#udetate2").innerHTML = 0
+    })
+
+
+</script>
+<footer><small>KINNIKU BANZAI COMPANY</small></footer>
+</body>
+</html>
